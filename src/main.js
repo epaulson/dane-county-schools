@@ -13,15 +13,19 @@ import * as polyclip from 'polyclip-ts';
 const app = document.querySelector('#app');
 app.innerHTML = `
   <div class="header">Dane County School Attendance Areas</div>
-  <div class="intro">
-    This site is meant to explore the intersections of the attendance areas of Dane County schools and other political subdivision, so the public and elected officials can understand what schools students in the different districts actually attend, and not just what schools are in which district.
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <select id="schoolType">
+        <option value="elementary">Elementary Schools</option>
+        <option value="middle">Middle Schools</option>
+        <option value="high">High Schools</option>
+      </select>
+    </div>
+    <div class="top-bar-right">
+      <button id="aboutBtn" type="button">About</button>
+    </div>
   </div>
   <div class="filter-bar">
-    <select id="schoolType">
-      <option value="elementary">Elementary</option>
-      <option value="middle">Middle</option>
-      <option value="high">High</option>
-    </select>
     <select id="subdivisionType">
       <option value="none">No Filter</option>
       <option value="alder">City Council District</option>
@@ -34,7 +38,27 @@ app.innerHTML = `
     <span id="subdivisionSublist"></span>
   </div>
   <div id="map"></div>
+  <div id="aboutModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close" id="aboutModalClose">&times;</span>
+      <div class="about-text">
+        This site is meant to explore the intersections of the attendance areas of Dane County schools and other political subdivision, so the public and elected officials can understand what schools students in the different districts actually attend, and not just what schools are in which district.
+      </div>
+    </div>
+  </div>
 `;
+
+// Modal logic
+const aboutBtn = document.getElementById('aboutBtn');
+const aboutModal = document.getElementById('aboutModal');
+const aboutModalClose = document.getElementById('aboutModalClose');
+aboutBtn.onclick = () => { aboutModal.style.display = 'block'; };
+aboutModalClose.onclick = () => { aboutModal.style.display = 'none'; };
+window.onclick = function(event) {
+  if (event.target === aboutModal) {
+    aboutModal.style.display = 'none';
+  }
+}
 
 // Add a spinner overlay to the app
 const spinner = document.createElement('div');
