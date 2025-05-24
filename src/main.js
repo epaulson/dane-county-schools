@@ -225,18 +225,55 @@ function showSchoolPoints(type) {
     high: ['High School']
   };
   const features = pointsGeo.features.filter(f => typeMap[type].includes(f.properties.SCHOOLTYPE));
-  schoolPointsLayer = L.geoJSON({ type: 'FeatureCollection', features }, {
-    pointToLayer: (feature, latlng) => L.circleMarker(latlng, {
-      radius: 6,
-      fillColor: '#0074D9',
-      color: '#fff',
-      weight: 2,
-      opacity: 1,
-      fillOpacity: 0.9
-    }),
-    // Remove popup binding for markers
-    onEachFeature: () => {}
-  }).addTo(map);
+
+  // Helper to create a marker icon (SVG only or SVG+label)
+  function createSchoolIconWithLabel(schoolName, showLabel) {
+    const iconUrl = '/school_icon_transparent.svg';
+    if (!showLabel) {
+      return L.icon({
+        iconUrl,
+        iconSize: [24, 24],
+        iconAnchor: [12, 12],
+        popupAnchor: [0, -12],
+        className: 'school-marker-icon'
+      });
+    } else {
+      // Use a DivIcon to combine SVG and label, with transparent background
+      return L.divIcon({
+        className: 'school-marker-label',
+        html: `<div style="display:flex;align-items:center;gap:4px;"><img src='${iconUrl}' width='24' height='24' style='display:inline-block;vertical-align:middle;'/><span style='color:#222;font-size:13px;font-weight:500;text-shadow:0 1px 2px #fff,0 0 2px #fff;background:transparent;padding:1px 4px;border-radius:3px;'>${schoolName.replace(/"/g,'&quot;')}</span></div>`,
+        iconAnchor: [12, 12],
+        popupAnchor: [0, -12]
+      });
+    }
+  }
+
+  // Helper to (re)draw the school points with/without labels
+  function drawSchoolPointsWithLabels() {
+    if (schoolPointsLayer) {
+      map.removeLayer(schoolPointsLayer);
+      schoolPointsLayer = null;
+    }
+    const showLabel = map.getZoom() >= 14;
+    schoolPointsLayer = L.geoJSON({ type: 'FeatureCollection', features }, {
+      pointToLayer: (feature, latlng) => {
+        const name = feature.properties.SCHOOLNAME || feature.properties.SCHOOL || feature.properties.Label || feature.properties.NAME || '';
+        return L.marker(latlng, { icon: createSchoolIconWithLabel(name, showLabel) });
+      },
+      onEachFeature: () => {}
+    }).addTo(map);
+  }
+
+  drawSchoolPointsWithLabels();
+
+  // Listen for zoom events to update labels dynamically
+  if (map._schoolLabelZoomHandler) {
+    map.off('zoomend', map._schoolLabelZoomHandler);
+  }
+  map._schoolLabelZoomHandler = function() {
+    drawSchoolPointsWithLabels();
+  };
+  map.on('zoomend', map._schoolLabelZoomHandler);
 }
 
 // Add this immediately after app.innerHTML = ...
