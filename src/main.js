@@ -172,9 +172,42 @@ function loadSchoolPolygons(type) {
       weight: 1,
       fillColor: feature.properties.mapcolor || '#cccccc',
       fillOpacity: 0.7
-    })
+    }),
+    onEachFeature: (feature, layer) => {
+      layer.on('click', function(e) {
+        const props = feature.properties || {};
+        // School name
+        const name = props.schoolname || props.SCHOOL || props.School || props.Label || props.LABEL || props.NAME || props.District || props.DISTRICT || props.MCD_NAME || props.DISTNAME || props.ASM2024 || props.SEN2024 || props.SUPERID || 'Attendance Area';
+        // Grades served
+        const grades = props.grades_svd || props.GRADE_RANG || '';
+        // School website
+        const website = props.website || props.SCHOOL_URL || '';
+        // DPI and NCES IDs
+        const dpi_dis_id = props.dpi_dis_id || props.SDID || '';
+        const dpi_sch_id = props.dpi_sch_id || props.SCH_CODE || '';
+        const nces_id = props.nces_id || props.NCES_CODE || '';
+        // Notes
+        const notes = props.notes || '';
+        // Links (only if IDs exist)
+        let links = '';
+        if (website) {
+          links += `<a href="${website}" target="_blank" rel="noopener">School Website</a><br>`;
+        }
+        if (dpi_dis_id && dpi_sch_id) {
+          links += `<a href="https://apps6.dpi.wi.gov/SchDirPublic/school-profile?district=${dpi_dis_id}&school=${dpi_sch_id}" target="_blank" rel="noopener">WI DPI School Page</a><br>`;
+        }
+        if (nces_id) {
+          links += `<a href="https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=${nces_id}" target="_blank" rel="noopener">NCES School Page</a><br>`;
+        }
+        let content = `<b>${name}</b>`;
+        if (grades) content += `<br>Grades: ${grades}`;
+        if (notes) content += `<br><i>${notes}</i>`;
+        if (links) content += `<br>${links}`;
+        layer._map && L.popup().setLatLng(e.latlng).setContent(content).openOn(layer._map);
+      });
+    }
   }).addTo(map);
-  // Show all school points for this type
+  // Show all school points for this type, but no popups on marker click
   showSchoolPoints(type);
 }
 
@@ -201,9 +234,8 @@ function showSchoolPoints(type) {
       opacity: 1,
       fillOpacity: 0.9
     }),
-    onEachFeature: (feature, layer) => {
-      layer.bindPopup(`<b>${feature.properties.SCHOOL}</b><br>${feature.properties.FULL_ADDR || ''}`);
-    }
+    // Remove popup binding for markers
+    onEachFeature: () => {}
   }).addTo(map);
 }
 
@@ -249,7 +281,12 @@ function drawSubdivisionBoundary(feature) {
   }
 }
 
+function closeAllPopups() {
+  if (map && map.closePopup) map.closePopup();
+}
+
 schoolTypeSelect.addEventListener('change', e => {
+  closeAllPopups();
   const subdivisionType = subdivisionTypeSelect.value;
   const subdivisionIdx = getCurrentSubdivisionIdx();
   updateURLParams({
@@ -267,6 +304,7 @@ schoolTypeSelect.addEventListener('change', e => {
 });
 
 subdivisionTypeSelect.addEventListener('change', e => {
+  closeAllPopups();
   updateURLParams({
     schoolType: schoolTypeSelect.value,
     subdivisionType: e.target.value,
@@ -292,6 +330,7 @@ subdivisionTypeSelect.addEventListener('change', e => {
   subdivisionSublist.appendChild(select);
   subdivisionIdxSelect = select;
   select.addEventListener('change', evt => {
+    closeAllPopups();
     updateURLParams({
       schoolType: schoolTypeSelect.value,
       subdivisionType: subdivisionTypeSelect.value,
@@ -357,7 +396,40 @@ function filterSchoolPolygonsBySubdivision(subdivisionFeature) {
         weight: 1,
         fillColor: feature.properties.mapcolor || '#cccccc',
         fillOpacity: 0.7
-      })
+      }),
+      onEachFeature: (feature, layer) => {
+        layer.on('click', function(e) {
+          const props = feature.properties || {};
+          // School name
+          const name = props.schoolname || props.SCHOOL || props.School || props.Label || props.LABEL || props.NAME || props.District || props.DISTRICT || props.MCD_NAME || props.DISTNAME || props.ASM2024 || props.SEN2024 || props.SUPERID || 'Attendance Area';
+          // Grades served
+          const grades = props.grades_svd || props.GRADE_RANG || '';
+          // School website
+          const website = props.website || props.SCHOOL_URL || '';
+          // DPI and NCES IDs
+          const dpi_dis_id = props.dpi_dis_id || props.SDID || '';
+          const dpi_sch_id = props.dpi_sch_id || props.SCH_CODE || '';
+          const nces_id = props.nces_id || props.NCES_CODE || '';
+          // Notes
+          const notes = props.notes || '';
+          // Links (only if IDs exist)
+          let links = '';
+          if (website) {
+            links += `<a href="${website}" target="_blank" rel="noopener">School Website</a><br>`;
+          }
+          if (dpi_dis_id && dpi_sch_id) {
+            links += `<a href="https://apps6.dpi.wi.gov/SchDirPublic/school-profile?district=${dpi_dis_id}&school=${dpi_sch_id}" target="_blank" rel="noopener">WI DPI School Page</a><br>`;
+          }
+          if (nces_id) {
+            links += `<a href="https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=${nces_id}" target="_blank" rel="noopener">NCES School Page</a><br>`;
+          }
+          let content = `<b>${name}</b>`;
+          if (grades) content += `<br>Grades: ${grades}`;
+          if (notes) content += `<br><i>${notes}</i>`;
+          if (links) content += `<br>${links}`;
+          layer._map && L.popup().setLatLng(e.latlng).setContent(content).openOn(layer._map);
+        });
+      }
     }).addTo(map);
     showSchoolPoints(schoolTypeSelect.value);
     showSpinner(false);
