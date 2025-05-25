@@ -144,11 +144,13 @@ function getURLParams() {
 
 // Main app startup
 (async function startApp() {
+  showSpinner(true);
   await preloadAllGeobufs();
   extractAllSubdivisions();
   // Read params from URL
   const { schoolType, subdivisionType, subdivisionIdx } = getURLParams();
   setTimeout(() => {
+    showSpinner(false);
     document.getElementById('app').style.visibility = 'visible';
     map.invalidateSize(); // Ensure Leaflet map resizes to fit container
     // Set initial school type
