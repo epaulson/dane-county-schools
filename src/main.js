@@ -514,7 +514,7 @@ function filterSchoolPolygonsBySubdivision(subdivisionFeature) {
 
 // Helper: get label property for each subdivision type
 const subdivisionLabelProps = {
-  alder: feature => `${feature.properties.Label} (ID: ${feature.properties.ALDERID})`,
+  alder: feature => `${feature.properties.MuniName} D-${feature.properties.ALDERID}`,
   supervisor: feature => `District ${feature.properties.SUPERID}`,
   municipality: feature => feature.properties.LABEL || feature.properties.MCD_NAME,
   schooldistrict: feature => feature.properties.District,
