@@ -178,6 +178,9 @@ function getURLParams() {
 // Hide app until loaded
 app.style.visibility = 'hidden';
 
+// Add a variable to control initial state of school icons
+let showSchoolIcons = true;
+
 let schoolLayer = null;
 let schoolPointsLayer = null;
 
@@ -538,3 +541,42 @@ function daneintersects(features, options = {}) {
   if (intersection2.length === 1) return polygon(intersection2[0], options.properties);
   return multiPolygon(intersection2, options.properties);
 }
+
+// Add a Leaflet control for toggling school icons (UI only, no logic)
+const SchoolIconsControl = L.Control.extend({
+  options: { position: 'topright', showSchoolIcons: true },
+  initialize: function(options) {
+    L.Util.setOptions(this, options);
+  },
+  onAdd: function(map) {
+    const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+    container.style.background = 'rgba(255,255,255,0.85)';
+    container.style.padding = '0.3em 0.8em 0.3em 0.5em';
+    container.style.borderRadius = '6px';
+    container.style.boxShadow = '0 1px 4px rgba(0,0,0,0.08)';
+    container.style.display = 'flex';
+    container.style.alignItems = 'center';
+    container.style.gap = '0.4em';
+    container.style.fontSize = '1em';
+    container.style.fontWeight = '500';
+    container.style.userSelect = 'none';
+    container.style.zIndex = 1200;
+    
+    const checkbox = L.DomUtil.create('input', '', container);
+    checkbox.type = 'checkbox';
+    checkbox.id = 'toggleSchoolIcons';
+    checkbox.checked = this.options.showSchoolIcons;
+    checkbox.style.marginRight = '0.4em';
+    // Use default browser checkbox appearance
+    
+    const label = L.DomUtil.create('label', '', container);
+    label.htmlFor = 'toggleSchoolIcons';
+    label.textContent = 'Display School Icons';
+    label.style.color = '#222';
+    
+    // Prevent map drag when interacting with control
+    L.DomEvent.disableClickPropagation(container);
+    return container;
+  }
+});
+map.addControl(new SchoolIconsControl({ showSchoolIcons }));
