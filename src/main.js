@@ -281,11 +281,18 @@ function showSchoolPoints(type) {
       map.removeLayer(schoolPointsLayer);
       schoolPointsLayer = null;
     }
+    if (!showSchoolIcons) {
+      // Don't show icons if toggled off
+      return;
+    }
     const showLabel = map.getZoom() >= 14;
     schoolPointsLayer = L.geoJSON({ type: 'FeatureCollection', features }, {
       pointToLayer: (feature, latlng) => {
         const name = feature.properties.SCHOOLNAME || feature.properties.SCHOOL || feature.properties.Label || feature.properties.NAME || '';
-        return L.marker(latlng, { icon: createSchoolIconWithLabel(name, showLabel) });
+        return L.marker(latlng, {
+          icon: createSchoolIconWithLabel(name, showLabel),
+          interactive: false // allow clicks to pass through to polygons
+        });
       },
       onEachFeature: () => {}
     }).addTo(map);
@@ -301,6 +308,9 @@ function showSchoolPoints(type) {
     drawSchoolPointsWithLabels();
   };
   map.on('zoomend', map._schoolLabelZoomHandler);
+
+  // Expose for external control
+  showSchoolPoints._redraw = drawSchoolPointsWithLabels;
 }
 
 // Add this immediately after app.innerHTML = ...
@@ -576,6 +586,14 @@ const SchoolIconsControl = L.Control.extend({
     
     // Prevent map drag when interacting with control
     L.DomEvent.disableClickPropagation(container);
+
+    // Add event listener to update showSchoolIcons and redraw
+    checkbox.addEventListener('change', function() {
+      showSchoolIcons = checkbox.checked;
+      if (typeof showSchoolPoints._redraw === 'function') {
+        showSchoolPoints._redraw();
+      }
+    });
     return container;
   }
 });
