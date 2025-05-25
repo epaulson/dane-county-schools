@@ -58,7 +58,7 @@ app.innerHTML = `
         <p>The datafiles for this app can be found in the <a href="https://github.com/epaulson/dane-county-schools" target="_blank" rel="noopener">Github repository for the app</a>. The README file in the repo explains the data sources.</p>
         <p>Special thanks to the following folks who provided the data or answered questions:
         <ul> 
-          <li>Shelley Witte of the Wisconsin Department of Public Instruction who manages the excellent <a href="https://dpi.wi.gov/wise/gis-maps/gis-open-data" target="_blank" rel="noopener">, which is where much of the data comes from. She also created the School Directory site at DPI, which this app links to for each school. Shelley also answered many questions as I was starting out on this app.</li> 
+          <li>Shelley Witte of the Wisconsin Department of Public Instruction who manages the excellent <a href="https://dpi.wi.gov/wise/gis-maps/gis-open-data" target="_blank" rel="noopener">DPI Open Data Portal</a>, which is where much of the data comes from. She also created the School Directory site at DPI, which this app links to for each school. Shelley also answered many questions as I was starting out on this app.</li> 
           <li><a href="https://grubeg.github.io/"target="_blank" rel="noopener">Greg Grube</a> of the Wisconsin Elections Commission, who created the datafile for the Alderman districts for the non-Madison alder districts.</li> 
           <li>The team behind the Legislative Technology Services Bureau of the Wisconsin Legislature and the Madison Open Data Portal, who provided much of the rest of the political subdivision data.</li>
           <li>Eric Lequesne of MMSD's Research Assessment, and Improvement team for Madison School data</li>

@@ -171,6 +171,10 @@ body {
   color: #222;
   line-height: 1.5;
   margin-top: 0.5em;
+  text-align: left;
+  padding-left: 0.1em;
+  padding-right: 0.1em;
+  word-break: break-word;
 }
 
 #map {
