@@ -42,8 +42,31 @@ app.innerHTML = `
     <div class="modal-content">
       <span class="close" id="aboutModalClose">&times;</span>
       <div class="about-text">
-        This site is meant to explore the intersections of the attendance areas of Dane County schools and other political subdivision, so the public and elected officials can understand what schools students in the different districts actually attend, and not just what schools are in which district.
-      </div>
+      <h3>About This App</h3>
+        <p>This app was created by <a href="https://posts.unit1127.com" target="_blank" rel="noopener">Erik Paulson</a> and the source code is available on <a href="https://github.com/epaulson/dane-county-schools" target="_blank" rel="noopener">Github</a></p>
+        <p>This site is meant to explore the intersections of the attendance areas of Dane County schools and other political subdivision, so the public and elected officials can understand what schools students in the different districts actually attend, and not just what schools are in which district.</p>
+        <p>This site lets you explore Dane County school attendance areas. It is filterable by different political subdivisions. When I was on the Madison Common Council, this was the app I wanted so I could say "where do students in my district attend school", which is a different question that "what schools are in my district?"</p> 
+        <p>There is no comprehensive school attendance area map for all schools, so I compiled one from multiple data sources in May of 2025. To be clear, this map is unofficial and should not be used for enrolling students. Even if it were official, school districts to not always follow enrollment area maps in order to balance class sizes between schools and for other reasons. Always consult with your district before enrolling a student.</p>
+        <p>To make this data easier to use, I created this web application that lets you not only see the attendance areas, but you can filter the attendance areas by other political subdivisions. The app will create the intersection of the school attendance areas and that political subdivision.</p>
+        <p>The colored polygons on the map represent school attendance areas. You can choose between elementary, middle, and high schools. If you click on a polygon, you'll see a popup with the name of that school, any school-specific notes, and links to the school website, the WI Department of Public Instruction Directory Page for that school, and the page for that school at the federal National Center for Educational Statistics.</p> 
+        <p>The app lets you filter attendance areas by city council/aldermanic districts, county supervisor districts, municipalities, school districts, state assembly districts, and state senate districts. For state positions, because I only collected school information for districts that intersect Dane County, not all assembly and senate districts have all schools attendance areas, and I only set up state legislative districts for districts that are at least in part in Dane County. </p>
+        <p>The app also displays the locations of schools, including some schools that do not have attendance areas like charter schools.</p>
+        <p>The URL contains all of the filter state, so you can share the URL with someone and they will see exactly what you are seeing.</p>
+        <p>The colors are mostly random but filled with a graph coloring algorithm to avoid having two neighboring attendance areas having the exact same color. I did make some effort to have some high schools use their school color but I did not do this for every high school, and did not do anything for the elementary or middle schools.</p>
+        <p>For Madison Alders, I have already created PDF versions of the maps for their district, available at <a href="https://epaulson.github.io/madison-schools-by-alder/" target="_blank" rel="noopener">epaulson.github.io/madison-schools-by-alder</a>.</p>
+      <h3>Data Sources and Thanks</h3>
+        <p>The datafiles for this app can be found in the <a href="https://github.com/epaulson/dane-county-schools" target="_blank" rel="noopener">Github repository for the app</a>. The README file in the repo explains the data sources.</p>
+        <p>Special thanks to the following folks who provided the data or answered questions:
+        <ul> 
+          <li>Shelley Witte of the Wisconsin Department of Public Instruction who manages the excellent <a href="https://dpi.wi.gov/wise/gis-maps/gis-open-data" target="_blank" rel="noopener">, which is where much of the data comes from. She also created the School Directory site at DPI, which this app links to for each school. Shelley also answered many questions as I was starting out on this app.</li> 
+          <li><a href="https://grubeg.github.io/"target="_blank" rel="noopener">Greg Grube</a> of the Wisconsin Elections Commission, who created the datafile for the Alderman districts for the non-Madison alder districts.</li> 
+          <li>The team behind the Legislative Technology Services Bureau of the Wisconsin Legislature and the Madison Open Data Portal, who provided much of the rest of the political subdivision data.</li>
+          <li>Eric Lequesne of MMSD's Research Assessment, and Improvement team for Madison School data</li>
+          <li>Louis Rada of the City of Sun Prairie for Sun Prairie School District data</li>
+          <li>Michael LaCount of the Verona Area School District for Verona School District data</li>
+          <li>Dr. Dennis Pauli, superintendent of the Edgerton School District, and Kathy Pierce, Registrar of Edgerton Schools, for help and data for Edgerton</li>
+          <li>Dr. Leslie Bergstrom, superintendent of the Oregon School District, for answering questions on the Oregon attendance areas</li>
+        </ul>
     </div>
   </div>
 `;
