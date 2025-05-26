@@ -21,6 +21,12 @@ body {
   flex-direction: column;
 }
 
+body.modal-open {
+  overflow: hidden !important;
+  position: fixed;
+  width: 100vw;
+}
+
 #app {
   width: 100vw;
   height: 100vh;
@@ -140,8 +146,12 @@ body {
   top: 0;
   width: 100vw;
   height: 100vh;
-  overflow: auto;
+  overflow: hidden;
   background-color: rgba(0,0,0,0.3);
+  transition: background 0.2s;
+}
+.modal.show {
+  display: block;
 }
 .modal-content {
   background-color: #fff;
@@ -151,8 +161,15 @@ body {
   border-radius: 8px;
   width: 95%;
   max-width: 480px;
+  max-height: 85vh;
   box-shadow: 0 2px 16px rgba(0,0,0,0.18);
   position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 .close {
   color: #888;
@@ -223,8 +240,13 @@ body {
   }
   .modal-content {
     padding: 1em 0.7em;
-    width: 98vw;
-    max-width: 99vw;
+    width: 95vw;
+    max-width: 95vw;
+    max-height: calc(90vh - env(safe-area-inset-bottom, 0px));
+    margin: 4vh auto 2vh auto;
+    border-radius: 10px;
+    /* Add extra bottom padding for iOS safe area */
+    padding-bottom: calc(1.5em + env(safe-area-inset-bottom, 16px));
   }
   .filter-bar {
     font-size: 0.95em;

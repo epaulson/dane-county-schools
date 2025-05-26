@@ -53,13 +53,13 @@ app.innerHTML = `
         <p>The app also displays the locations of schools, including some schools that do not have attendance areas like charter schools.</p>
         <p>The URL contains all of the filter state, so you can share the URL with someone and they will see exactly what you are seeing.</p>
         <p>The colors are mostly random but filled with a graph coloring algorithm to avoid having two neighboring attendance areas having the exact same color. I did make some effort to have some high schools use their school color but I did not do this for every high school, and did not do anything for the elementary or middle schools.</p>
-        <p>For Madison Alders, I have already created PDF versions of the maps for their district, available at <a href="https://epaulson.github.io/madison-schools-by-alder/" target="_blank" rel="noopener">epaulson.github.io/madison-schools-by-alder</a>.</p>
+        <p>For Madison alders, I have already created PDF versions of the maps for their district, available at <a href="https://epaulson.github.io/madison-schools-by-alder/" target="_blank" rel="noopener">epaulson.github.io/madison-schools-by-alder</a>.</p>
       <h3>Data Sources and Thanks</h3>
         <p>The datafiles for this app can be found in the <a href="https://github.com/epaulson/dane-county-schools" target="_blank" rel="noopener">Github repository for the app</a>. The README file in the repo explains the data sources.</p>
         <p>Special thanks to the following folks who provided the data or answered questions:
         <ul> 
           <li>Shelley Witte of the Wisconsin Department of Public Instruction who manages the excellent <a href="https://dpi.wi.gov/wise/gis-maps/gis-open-data" target="_blank" rel="noopener">DPI Open Data Portal</a>, which is where much of the data comes from. She also created the School Directory site at DPI, which this app links to for each school. Shelley also answered many questions as I was starting out on this app.</li> 
-          <li><a href="https://grubeg.github.io/"target="_blank" rel="noopener">Greg Grube</a> of the Wisconsin Elections Commission, who created the datafile for the Alderman districts for the non-Madison alder districts.</li> 
+          <li><a href="https://grubeg.github.io/"target="_blank" rel="noopener">Greg Grube</a> of the Wisconsin Elections Commission, who created the datafile for the alder districts for the non-Madison alder districts.</li> 
           <li>The team behind the Legislative Technology Services Bureau of the Wisconsin Legislature and the Madison Open Data Portal, who provided much of the rest of the political subdivision data.</li>
           <li>Eric Lequesne of MMSD's Research Assessment, and Improvement team for Madison School data</li>
           <li>Louis Rada of the City of Sun Prairie for Sun Prairie School District data</li>
@@ -67,6 +67,7 @@ app.innerHTML = `
           <li>Dr. Dennis Pauli, superintendent of the Edgerton School District, and Kathy Pierce, Registrar of Edgerton Schools, for help and data for Edgerton</li>
           <li>Dr. Leslie Bergstrom, superintendent of the Oregon School District, for answering questions on the Oregon attendance areas</li>
         </ul>
+        <br/<br/><br/><br/
     </div>
   </div>
 `;
@@ -75,11 +76,21 @@ app.innerHTML = `
 const aboutBtn = document.getElementById('aboutBtn');
 const aboutModal = document.getElementById('aboutModal');
 const aboutModalClose = document.getElementById('aboutModalClose');
-aboutBtn.onclick = () => { aboutModal.style.display = 'block'; };
-aboutModalClose.onclick = () => { aboutModal.style.display = 'none'; };
+aboutBtn.onclick = () => { 
+  aboutModal.style.display = 'block';
+  aboutModal.classList.add('show');
+  document.body.classList.add('modal-open');
+};
+aboutModalClose.onclick = () => { 
+  aboutModal.style.display = 'none';
+  aboutModal.classList.remove('show');
+  document.body.classList.remove('modal-open');
+};
 window.onclick = function(event) {
   if (event.target === aboutModal) {
     aboutModal.style.display = 'none';
+    aboutModal.classList.remove('show');
+    document.body.classList.remove('modal-open');
   }
 }
 
