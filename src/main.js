@@ -291,7 +291,7 @@ function showSchoolPoints(type) {
 
   // Helper to create a marker icon (SVG only or SVG+label)
   function createSchoolIconWithLabel(schoolName, showLabel) {
-    const iconUrl = '/school_icon_transparent.svg';
+    const iconUrl = `${import.meta.env.BASE_URL}school_icon_transparent.svg`;
     if (!showLabel) {
       return L.icon({
         iconUrl,
