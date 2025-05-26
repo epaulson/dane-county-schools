@@ -117,17 +117,17 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 // Preload all geobuf files and decode at startup
 const allGeobufFiles = {
   // School polygons
-  elementary: '/geodata/dane_elementaries_colored.pbf',
-  middle: '/geodata/dane_middleschools_colored.pbf',
-  high: '/geodata/dane_highschools_colored.pbf',
+  elementary: 'geodata/dane_elementaries_colored.pbf',
+  middle: 'geodata/dane_middleschools_colored.pbf',
+  high: 'geodata/dane_highschools_colored.pbf',
   // Subdivisions
-  alder: '/geodata/dane_county_alder_dists.pbf',
-  supervisor: '/geodata/dane_county_supervisors.pbf',
-  municipality: '/geodata/dane_county_munis.pbf',
-  schooldistrict: '/geodata/dane_county_school_districts.pbf',
-  assembly: '/geodata/dane_county_assembly_dists.pbf',
-  senate: '/geodata/dane_county_senate_districts.pbf',
-  public_schools: '/geodata/dane_county_public_schools.pbf',
+  alder: 'geodata/dane_county_alder_dists.pbf',
+  supervisor: 'geodata/dane_county_supervisors.pbf',
+  municipality: 'geodata/dane_county_munis.pbf',
+  schooldistrict: 'geodata/dane_county_school_districts.pbf',
+  assembly: 'geodata/dane_county_assembly_dists.pbf',
+  senate: 'geodata/dane_county_senate_districts.pbf',
+  public_schools: 'geodata/dane_county_public_schools.pbf',
 };
 
 const decodedGeobufs = {};
