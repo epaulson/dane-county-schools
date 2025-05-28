@@ -262,7 +262,7 @@ function loadSchoolPolygons(type) {
         if (nces_id) {
           links += `<a href="https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=${nces_id}" target="_blank" rel="noopener">NCES School Page</a><br>`;
         }
-        let content = `<b>${name}</b>`;
+        let content = `<b>${name} Attendance Area</b>`;
         if (grades) content += `<br>Grades: ${grades}`;
         if (notes) content += `<br><i>${notes}</i>`;
         if (links) content += `<br>${links}`;
@@ -533,7 +533,7 @@ function filterSchoolPolygonsBySubdivision(subdivisionFeature) {
           if (nces_id) {
             links += `<a href="https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=${nces_id}" target="_blank" rel="noopener">NCES School Page</a><br>`;
           }
-          let content = `<b>${name}</b>`;
+          let content = `<b>${name} Attendance Area</b>`;
           if (grades) content += `<br>Grades: ${grades}`;
           if (notes) content += `<br><i>${notes}</i>`;
           if (links) content += `<br>${links}`;
