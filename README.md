@@ -27,7 +27,7 @@ For political subdivisions, the state legislative districts, the municipalities,
 
 The aldermanic districts are from a datafile created by [Greg Grube](https://grubeg.github.io/) of the Wisconsin Elections Commission in 2022, however, I replaced the Madison aldermanic boundaries with a more recent version from the [City of Madison Open Data Portal](https://data-cityofmadison.opendata.arcgis.com/) that reflects the final Town of Madison attachment, and edited them to cut out the Lakes Mendota and Monona from some districts.
 
-The school districts, and the school locations, come from the [WI Department of Public Instruction's (DPI) Open Data Portal](https://dpi.wi.gov/wise/gis-maps/gis-open-data) managed by Shelley Witte. I also took the NCES IDs from the most excellent [School Directory Application](https://apps6.dpi.wi.gov/SchDirPublic/home) that Shelley created.
+The school districts, and the school locations, come from the [WI Department of Public Instruction's (DPI) Open Data Portal](https://dpi.wi.gov/wise/gis-maps/gis-open-data) managed by Shelley Witte. I also took the NCES IDs from the most excellent [School Directory Application](https://apps6.dpi.wi.gov/SchDirPublic/home) that the team at DPI created.
 
 School data largely came from the DPI open data portal as well, because for many school districts there is only one elementary school, one middle school, and one high school for the entire district, so in that case I just copied the DPI data for the district into my map.
 
